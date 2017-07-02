@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +19,14 @@ public class HeroController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping("/hero")
     public Hero getHero(@RequestParam(value="name", defaultValue="World") String name) {
         return new Hero(counter.incrementAndGet(),
                             String.format(template, name));
     }
     
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping("/hero/list")
     public Collection<Hero> getAllHeros() {
         List<Hero> heroList = new ArrayList<Hero>();
